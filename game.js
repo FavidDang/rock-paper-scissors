@@ -33,37 +33,39 @@ function playRound(playerSelection, computerSelection) {
     }
 }
 
-function playGame() {
+function playGame(event) {
 
-    let playerScore = 0;
-    let computerScore = 0;
-
-    for (let i = 0; i < 5; ++i) {
-        const playerChoice = prompt("Choose rock, paper, or scissors");
-        const computerChoice = getComputerChoice();
-        const result = playRound(playerChoice, computerChoice);
-
-        console.log(`Computer threw: ${computerChoice}`);
-        console.log(`Result: ${result}`);
-
-        if (result === "win") {
-            ++playerScore;
-        } else if (result === "loss") {
-            ++computerScore;
-        }
-
-        console.log(`Player Score: ${playerScore}`);
-        console.log(`Computer Score: ${computerScore}`);
+    if (playerScore === 5 || computerScore === 5) {
+        return;
     }
 
-    if (playerScore > computerScore) {
-        console.log("Player wins!");
-    } else if (playerScore < computerScore) {
-        console.log("Computer wins!");
-    } else {
-        console.log("It's a tie!");
-    }
+    const playerChoice = event.target.innerText.toLowerCase();
+    const computerChoice = getComputerChoice;
 
+    const result = playRound(playerChoice, computerChoice);
+    if (result === "win") {
+        ++playerScore;
+    } else if (result === "loss") {
+        ++computerScore;
+    }
+    playerScoreDOM.innerText = `Player Score: ${playerScore}`;
+    computerScoreDOM.innerText = `Computer Score: ${computerScore}`;
+
+    if (playerScore === 5) {
+        winner.innerText = "Winner: Player";
+    } else if (computerScore === 5)  {
+        winner.innerText = "Winner: Computer";
+    }
 }
 
-playGame()
+const btnList = document.querySelectorAll("button");
+const playerScoreDOM = document.querySelector("#playerScore");
+const computerScoreDOM = document.querySelector("#computerScore");
+const winner = document.querySelector("#winner");
+
+btnList.forEach(function(button) {
+    button.addEventListener("click", playGame);    
+});
+
+let playerScore = 0;
+let computerScore = 0;
