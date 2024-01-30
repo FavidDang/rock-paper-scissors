@@ -40,7 +40,7 @@ function playGame(event) {
     }
 
     const playerChoice = event.target.innerText.toLowerCase();
-    const computerChoice = getComputerChoice;
+    const computerChoice = getComputerChoice();
 
     const result = playRound(playerChoice, computerChoice);
     if (result === "win") {
@@ -48,6 +48,7 @@ function playGame(event) {
     } else if (result === "loss") {
         ++computerScore;
     }
+    computerChoiceDOM.innerText = `Computer Threw: ${computerChoice}`;
     playerScoreDOM.innerText = `Player Score: ${playerScore}`;
     computerScoreDOM.innerText = `Computer Score: ${computerScore}`;
 
@@ -59,6 +60,7 @@ function playGame(event) {
 }
 
 const btnList = document.querySelectorAll("button");
+const computerChoiceDOM = document.querySelector("#computerChoice");
 const playerScoreDOM = document.querySelector("#playerScore");
 const computerScoreDOM = document.querySelector("#computerScore");
 const winner = document.querySelector("#winner");
